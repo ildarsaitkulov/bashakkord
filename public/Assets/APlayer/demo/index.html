@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>APlayer Demo</title>
+    <link rel="stylesheet" href="../dist/APlayer.min.css">
+
+
+</head>
+<body>
+    <div  class="container">
+
+        <div id="player1" class="aplayer"></div>
+
+    </div>
+    <script src="../dist/APlayer.min.js"></script>
+    <script>
+        var ap1 = new APlayer({
+            element: document.getElementById('player1'),
+            narrow: false,
+            showlrc: false,
+            theme: '#e6d0b2',
+            music: {
+                title: 'Preparation',
+                author: 'Hans Zimmer/Richard Harvey',
+                url: 'http://7xq131.com1.z0.glb.clouddn.com/Preparation.mp3',
+                pic: 'http://7xq131.com1.z0.glb.clouddn.com/Preparation.jpg'
+            }
+        });
+        ap1.init();
+
+    </script>
+</body>
+</html>

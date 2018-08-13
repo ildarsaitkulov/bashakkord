@@ -1,0 +1,31 @@
+
+{% extends '/Index.html' %}
+
+{% block content %}
+
+
+{% if  app.user %}
+  <blockquote>
+    <em class="text-justify bg-info lead">Түбәндәге форманы тултырып ебәрегеҙ. 48 сәғәт эсендә йырҙы төп биттә яңылыҡтар араһында курергә мөмкин була.
+      Әгәр аккордтар булған йырҙар менән бүлешһәгеҙ беҙҙән һеҙгә ҙур рәхмәт!
+    </em>
+  </blockquote>
+
+  {% include '__form.html' %}
+
+  {% else %}
+
+    <blockquote>
+      <em class="text-justify bg-info lead">Дуҫтар, яҡшы яңылыҡ! Беҙ һеҙгә бушлай аккордтар һайларға ярҙам итәбеҙ. Бының өсөн һеҙгә <a href="/user/register">сайтта теркәлергә</a> кәрәк.
+      </em>
+    </blockquote>
+
+
+{% endif %}
+  <hr>
+
+{% endblock %}
+
+{% block  breadcrumb %}
+  <li><a href="/order">Аккордтар менән ярҙам</a></li>
+{% endblock %}

@@ -1,0 +1,24 @@
+<section>
+    {% for item in items %}
+    <article class="clearfix">
+        <h3><a href="/news/{{item.Pk}}.html">{{item.title}}</a></h3>
+        <div class="row">
+            {% if item.image %}
+                <div class="col-md-6 col-sm-6">
+                    <a href="/news/{{item.Pk}}.html">
+                        <img src="{{item.image}}"  class="img-responsive pull-left img-rounded news_img">
+                    </a>
+                </div>
+            {% endif %}
+            <div class="col-md-6 col-sm-6">
+                {{item.lead|raw}}
+                <a href="/news/{{item.Pk}}.html">Уҡырға<i class="fa fa-angle-double-right"></i></a>
+            </div>
+        </div>
+
+    </article>
+        <hr>
+    {% endfor %}
+    <div style="text-align: center;">{{widget('pager', {'total': itemsCount, 'size': pageSize, 'active': activePage, 'url': '/news/?page=%d'})}}</div>
+
+</section>

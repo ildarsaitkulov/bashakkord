@@ -1,0 +1,38 @@
+{% extends "Mail/Basic/index.html" %}
+
+{% block header1 %}Вы не забыли о своем заказе?{% endblock %}
+
+{% block text1 %}
+<p>Здравствуйте, {{ user.fullName }}!</p>
+<p>Однажды вы сделали заказ в Академии программирования ProfIT, но не оплатили его:</p>
+<p><strong>Заказ №{{ order.Pk }}</strong></p>
+<p>
+    В заказе:
+    {% if order.itemType == 'course' %}
+        {{ order.item.typeTitle|capitalize }} &laquo;{{order.item.title}}&raquo;
+    {% elseif order.itemType == 'sprint' %}
+        {{ order.item.typeTitle|capitalize }} &laquo;{{order.item.title}}&raquo;
+    {% elseif order.itemType == 'webinar' %}
+        {{ order.item.typeTitle|capitalize }} &laquo;{{order.item.title}}&raquo;
+    {% endif %}
+</p>
+<p><strong><span style="color:darkred;">Итого к оплате: {{ order.price }}&nbsp;рублей</span></strong></p>
+<p>&nbsp;</p>
+<p><a target='_blank' href="{{ domain }}/orders/pay?id={{ order.Pk }}" class="link2" style="color:#ffffff">Оплатить сейчас</a></p>
+{% endblock %}
+
+{% block subheader11 %}Все ваши заказы{% endblock %}
+{% block subtext11 %}
+    <p>Проверьте остальные ваши заказы - вдруг там есть еще что-то интересное?</p>
+{% endblock %}
+{% block subclick11text %}Все заказы{% endblock %}
+{% block subclick11url %}{{ domain }}/orders/{% endblock %}
+
+{% block subheader12 %}Ваш личный кабинет{% endblock %}
+{% block subtext12 %}
+    <p>Отличный способ не забыть о тех мероприятиях, на которые вы записаны - ваш личный кабинет!</p>
+{% endblock %}
+{% block subclick12text %}Войти в кабинет студента{% endblock %}
+{% block subclick12url %}{{ domain }}/learning/{% endblock %}
+
+{% block second %}{% endblock %}

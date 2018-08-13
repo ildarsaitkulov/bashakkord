@@ -1,0 +1,27 @@
+{% extends "Mail/Basic/index.html" %}
+
+{% block header1 %}Вы получили БЕСПЛАТНО доступ к записи вебинара &laquo;{{ webinar.title }}&raquo;{% endblock %}
+
+{% block text1 %}
+<p>Здравствуйте!</p>
+<p>Вы зарегистрировались на сайте Академии программирования &laquo;ProfIT&raquo;.</p>
+<p>Для вас, как для нового пользователя - ПОДАРОК! Бесплатный доступ к записи вебинара &laquo;{{ webinar.title }}&raquo;.</p>
+{{ webinar.lead | raw }}
+<hr>
+<p>Чтобы получить доступ, зайдите в свой <a href="{{ domain }}/learning/">Личный кабинет</a>, в раздел <a href="{{ domain }}/learning/webinars/">Вебинары</a>.</p>
+<p style="text-align: center; font-size: 16px; color: #ff2222">Удачи в учёбе!</p>
+{% endblock %}
+
+{% block subheader11 %}{% endblock %}
+{% block subtext11 %}
+{% endblock %}
+{% block subclick11text %}{% endblock %}
+{% block subclick11url %}{% endblock %}
+
+{% block subheader12 %}{% endblock %}
+{% block subtext12 %}
+{% endblock %}
+{% block subclick12text %}{% endblock %}
+{% block subclick12url %}{% endblock %}
+
+{% block second %}{% endblock %}

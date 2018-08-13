@@ -1,0 +1,36 @@
+{% extends 'Index.html' %}
+
+{% block content %}
+
+
+  <h2 class="text-center">Башҡарыусылар {{ letter }}</h2>
+  <hr>
+
+  {% if error %}
+    <div class="alert alert-danger" role="alert">{{error}}</div>
+  {% endif %}
+
+  <table class="table table-striped table-bordered table-hover">
+
+    {% for item in items %}
+      <tr>
+        <th ><a href="/artists/{{ item.__id }}">{{ item.name }}</a></th>
+        <th>
+          {% if item.image %}
+            <a href="/artists/{{ item.__id }}"><img class="img-rounded"   style="max-height: 50px; max-width: 140px; " src="{{item.image}}" alt="{{item.image}}"></a>
+          {% else %}
+            <a href="/artists/{{ item.__id }}"><img class="img-rounded" style="max-height: 50px; max-width: 140px" src="/public/artists/images/StdArtist2.png" alt="artist"></a>
+          {% endif %}
+        </th>
+      </tr>
+    {% endfor %}
+  </table>
+  <hr>
+  <t4:block path="/Song/Index/Find/"></t4:block>
+
+{% endblock %}
+
+{% block  breadcrumb %}
+  <li>Эҙләү</li>
+  <li>{{ letter }}</li>
+{% endblock %}

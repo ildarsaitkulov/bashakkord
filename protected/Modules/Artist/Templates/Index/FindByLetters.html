@@ -1,0 +1,33 @@
+{% extends 'Index.html' %}
+
+{% block content %}
+
+
+  <h2 class="text-center">Башҡарыусылар {{ firstLetters }}</h2>
+  <hr>
+
+  {% if error %}
+    <div class="alert alert-danger" role="alert">{{error}}</div>
+  {% endif %}
+
+  <div class="row">
+    {% for artist in artists %}
+      <div class="col-xs-6 col-md-3">
+        <a href="/artists/{{ artist.__id }}" class="thumbnail">
+          {% if artist.image %}
+            <img    src="{{artist.image}}" alt="{{artist.image}}">
+          {% else %}
+            <img  src="/public/artists/images/StdArtist2.png" alt="artist">
+          {% endif %}
+          <h5 class="text-center">{{ artist.name }}</h5>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+  <t4:block path="/Song/Index/FindByLetters/"></t4:block>
+{% endblock %}
+
+{% block  breadcrumb %}
+  <li>Эҙләү</li>
+  <li>{{ firstLetters }}</li>
+{% endblock %}

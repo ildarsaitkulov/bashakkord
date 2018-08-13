@@ -1,0 +1,25 @@
+{% extends "Mail/Basic/index.html" %}
+
+{% block header1 %}Новый пароль{% endblock %}
+
+{% block text1 %}
+<p>Здравствуйте, {{ user.firstName }}!</p>
+<p>Вы запросили восстановление пароля на сайте Академии программирования &laquo;ProfIT&raquo;. Ваш новый пароль: <b>{{ password }}</b></p>
+<p>Пожалуйста, не сообщайте никому Ваш пароль. В случае проблем с входом - обращайтесь в службу поддержки.</p>
+{% endblock %}
+
+{% block subheader11 %}Профиль пользователя{% endblock %}
+{% block subtext11 %}
+    <p>Обязательно заполните свой профиль - загрузите аватар, укажите свой номер телефона. Мы будем предупреждать вас по SMS о начале мероприятий, на которые вы записаны!</p>
+{% endblock %}
+{% block subclick11text %}Заполнить профиль{% endblock %}
+{% block subclick11url %}{{ domain }}/user/{% endblock %}
+
+{% block subheader12 %}Ваши интересы{% endblock %}
+{% block subtext12 %}
+    <p>Не забудьте указать свои профессиональные интересы. Это позволит нам предлагать вам наиболее подходящие курсы и рекомендовать интересные мероприятия, исходя из ваших интересов!</p>
+{% endblock %}
+{% block subclick12text %}Заполнить интересы{% endblock %}
+{% block subclick12url %}{{ domain }}/user/interests/{% endblock %}
+
+{% block second %}{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "Index.html" %}
+
+{% block content %}
+
+<h2>Сайтҡа инеү</h2>
+    <hr>
+
+{% for error in errors %}
+<div class="alert alert-danger" role="alert">{{error.message}}</div>
+{% endfor %}
+
+{% if not app.user %}
+{% include '__login.form.html' %}
+{% else %}
+Һеҙ индегеҙ {{app.user.email}}
+{% endif %}
+
+{% endblock %}
+
+{% block  breadcrumb %}
+    <li><a href="/user/login">Инергә</a></li>
+{% endblock %}

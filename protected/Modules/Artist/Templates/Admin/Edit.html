@@ -1,0 +1,84 @@
+{% extends 'Admin/Blank.html' %}
+
+{% block breadcrumbs %}
+  <ol class="breadcrumb">
+    <li><a href="/admin/">Админ-панель</a></li>
+    <li><a href="/admin/artist/">Исполнители</a></li>
+    <li>{% if artist.isNew %}Добавление новости{% else %}Редактирование исполнителя {% endif %}</li>
+  </ol>
+{% endblock %}
+
+{% block header %}
+  {% if artist.isNew %}Добавить исполнителя{% else %}Редактирование исполнителя{% endif %}
+{% endblock %}
+
+{% block content %}
+
+  <div class="row">
+    <form class="form-horizontal" method="post" enctype="multipart/form-data" action="/admin/artist/add">
+
+      {% if not artist.isNew %}
+        <input type="hidden" name="id" value="{{artist.Pk}}">
+      {% endif %}
+
+      <div class="form-group">
+        <label for="title" class="col-sm-2 control-label">Имя</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="title" name="name" placeholder="Имя исполнителя" value="{{artist.name}}">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Фотография</label>
+        <div class="col-sm-10">
+          <p class="form-control-static">
+            {% if artist.image %}
+          <p class="image">
+            <img src="{{artist.image}}" class="img-responsive" style="max-width: 200px; max-height: 200px;">
+            <a href="#" class="artist-image-delete" data-id="{{artist.Pk}}"><i class="glyphicon glyphicon-remove text-danger"></i>&nbsp;</a>
+          </p>
+          {% endif %}
+          </p>
+          {{element('file', 'image', {'text':'Выберите файл'})}}
+        </div>
+      </div>
+
+
+      <footer class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-primary">{% if artist.isNew %}Создать{% else %}Сохранить{% endif %}</button>
+        <button type="button" class="btn btn-default" onclick="window.history.back();">Отменить</button>
+        {% if not artist.isNew %}<a href="/admin/artist/delete/?id={{artist.Pk}}" class="confirmable"><button type="button" class="btn btn-danger">Удалить</button></a>{% endif %}
+      </footer>
+      <p><b style="color: red;">Имя исполнителя только на башкирском!</b></p>
+
+    </form>
+  </div>
+
+{% endblock %}
+
+{% block pagescript %}
+  <script type="text/javascript">
+    $(function () {
+
+      $('a.confirmable').click(function() {
+        return confirm('Вы уверены?');
+      });
+
+      $('.artist-image-delete').click( function () {
+        var $this = $(this);
+        var id = $this.attr('data-id');
+        if (0 != id) {
+          $.post('/admin/artist/deleteImage.json', {"id":id}, function (r) {
+            if (r.result) {
+              $this.parent().remove();
+            }
+          });
+        }
+        return false;
+      });
+
+    });
+  </script>
+  <script type="text/javascript" src="/js/ckeditor.js"></script>
+  <script type="text/javascript" src="/js/t4.js"></script>
+{% endblock %}

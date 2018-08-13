@@ -1,0 +1,11 @@
+{% extends "Mail/Basic/index.html" %}
+
+{% block header1 %}Рәхим итегеҙ!{% endblock %}
+
+{% block text1 %}
+<p>Һаумыһығыҙ, {{ user.email }}!</p>
+<p>Һеҙ BashAkkord сайтында теркәлдегеҙ. Хәҙер һеҙ сайттың сервисы менән тулыһынса ҡуллана алаһығыҙ.</p>
+    <p>Сайтҡа кереү өсөн һеҙҙең пароль {{ password }}</p>
+
+{% endblock %}
+

@@ -1,0 +1,23 @@
+{% extends "Index.html" %}
+
+{% block content %}
+    <img  style="max-width: 30%; " src="/img/404.png" alt="access_denied">
+<p>Күрһәтегән адрес буйынса сайтта биттәр теркәлмәгән. Бәлки сайттың картаһы менән ҡулланырһығыҙ?</p>
+<div class="row">
+    <div class="col-xs-12">
+        <ul >
+            <li role="presentation" ><a href="/">Төп бит<span class="glyphicon glyphicon-home"></span></a></li>
+            <li role="presentation" ><a href="/">Яңылыҡтар <span class="fa fa-newspaper-o"></span></a>
+                <ul>
+                    <li><a href="/news/topics">Рубрикалар</a></li>
+                </ul>
+            </li>
+            <li role="presentation"><a href="/songs">Йырҙар<span class="glyphicon glyphicon-music"></span></a></li>
+            <li role="presentation"><a href="/artists">Башҡарыусылар<span class="glyphicon glyphicon-user"></span></a></li>
+            <li role="presentation"><a href="/order">Аккордтар менән ярҙам<span class="glyphicon glyphicon-star"></span></a></li>
+            <li role="presentation"><a href="/about">Беҙҙең турала мәғлүмәт<span class="glyphicon glyphicon-info-sign"></span></a></li>
+
+        </ul>
+    </div>
+</div>
+{% endblock %}

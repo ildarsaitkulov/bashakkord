@@ -1,0 +1,125 @@
+{% extends 'Admin/Blank.html' %}
+
+{% block breadcrumbs %}
+  <ol class="breadcrumb">
+    <li><a href="/admin/">Админ-панель</a></li>
+    <li><a href="/admin/song/">Композиции</a></li>
+    <li>{% if song.isNew %}Добавление новости{% else %}Редактирование композиции {% endif %}</li>
+  </ol>
+{% endblock %}
+
+{% block header %}
+  {% if song.isNew %}Добавление композиции{% else %}Редактирование композиции{% endif %}
+{% endblock %}
+
+{% block content %}
+
+  <div class="row">
+    <form class="form-horizontal" method="post" enctype="multipart/form-data" action="/admin/song/add">
+
+      {% if not song.isNew %}
+        <input type="hidden" name="id" value="{{song.Pk}}">
+      {% endif %}
+
+      <div class="form-group">
+        <label for="title" class="col-sm-2 control-label">Название</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="title" name="title" placeholder="Заголовок" value="{{song.title}}{{service.title}}">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="title" class="col-sm-2 control-label">Исполнитель</label>
+        <div class="col-sm-10">
+          <select id="__artist_id" name="__artist_id" class="form-control select2-city">
+            {% if song.artist %}<option value="{{song.artist.Pk}}" >{{song.artist.name}}</option>{% endif %}
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="text" class="col-sm-2 control-label">Текст</label>
+        <div class="col-sm-10">
+          <t4:editor name="text">{{song.text}}{{service.text}}</t4:editor>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Аудио</label>
+        <div class="col-sm-10">
+          <p class="form-control-static">
+            {% if song.audio %}
+          <p class="audio">
+          <audio src="{{ song.audio }}" type="audio/mp3" controls></audio>
+            <a href="#" class="song-audio-delete" data-id="{{song.Pk}}"><i class="glyphicon glyphicon-remove text-danger"></i>&nbsp;</a>
+          </p>
+          {% endif %}
+          {{element('file', 'audio', {'text':'Выберите файл'})}}
+          </p>
+        </div>
+      </div>
+      <footer class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-primary">{% if song.isNew %}Создать{% else %}Сохранить{% endif %}</button>
+        <button type="button" class="btn btn-default" onclick="window.history.back();">Отменить</button>
+        {% if not song.isNew %}<a href="/admin/song/delete/?id={{ song.Pk }}" class="confirmable"><button type="button" class="btn btn-danger">Удалить</button></a>{% endif %}
+      </footer>
+
+    </form>
+    <div>
+      <p><b style="color: red;">Название пенсни только на башкирском!</b></p>
+      <p><b style="color: red;">Выделели аккорды СНАЧАЛА полужирным! </b></p>
+    </div>
+
+  </div>
+
+{% endblock %}
+
+{% block pagescript %}
+  <script type="text/javascript">
+    $(function () {
+
+      $('a.confirmable').click(function() {
+        return confirm('Вы уверены?');
+      });
+
+      $('.song-audio-delete').click( function () {
+        var $this = $(this);
+        var id = $this.attr('data-id');
+        if (0 != id) {
+
+          $.post('/admin/song/deleteAudio.json', {"id":id}, function (r) {
+            if (r.result) {
+              $this.parent().remove();
+            }
+          });
+        }
+        return false;
+      });
+
+      $('select.select2-city').select2({
+        ajax: {
+          url: "/admin/artist/find.json",
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+            return {
+              firstLetters: params.term, // search term
+            };
+          },
+          processResults: function (data, page) {
+            return {
+              results: $.map(data.items, function (item, i) {
+                return {
+                  text: item,
+                  id: i
+                }
+              })
+            };
+          },
+          cache: false
+        },
+        minimumInputLength: 1
+      });
+
+    });
+  </script>
+
+{% endblock %}

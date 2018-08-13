@@ -1,0 +1,37 @@
+{% extends 'Index.html' %}
+
+{% block content %}
+  <h2 style="text-align: center;" >Башҡарыусылар {{ letter }} </h2>
+  <hr>
+  {% if error %}
+    <div class="alert alert-danger" role="alert">{{error}}</div>
+  {% endif %}
+  <table class="table table-striped table-bordered  table-hover" >
+    <tr  class="info">
+      <th style="text-align: center;">Йырҙың исеме</th>
+      <th style="text-align: center;">Башҡарыусылар</th>
+      <th style="text-align: center;">Ҡарауҙар</th>
+    </tr>
+    {% for item in items %}
+
+      <tr>
+        <th style="text-align: center;" ><a href="/songs/{{ item.Pk }}">{{ item.title }}</a></th>
+        <th style="text-align: center;" ><a href="/artists/{{ item.artist.Pk }}">{{ item.artist.name }}</a></th>
+        <th style="text-align: center;" ><i class="fa fa-eye"> {{ item.visits }}</i></th>
+      </tr>
+    {% endfor %}
+  </table>
+
+
+
+  <div style="text-align: center;">{{widget('pager', {'total': itemsCount, 'size': pageSize, 'active': activePage, 'url': '/song/?page=%d'})}}</div>
+
+{% endblock %}
+
+{% block  breadcrumb %}
+  <li><a href="/songs">Йырҙар</a></li>
+  <li><a href="/song/find?letter=А%"></a>{{ letter }}</li>
+{% endblock %}
+
+
+

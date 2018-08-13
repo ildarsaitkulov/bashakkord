@@ -1,0 +1,26 @@
+
+{% for error in errors %}
+  <div class="alert alert-danger" role="alert">{{error.message}}</div>
+{% endfor %}
+{% if success %}
+  <div class="alert alert-success" role="alert">{{ success }}</div>
+{% endif %}
+
+<form role="form" action="/order" method="post">
+  <div class="form-group">
+    <label for="inputArtist">Башҡарыусы</label>
+    <input type="text" name="artist" class="form-control" id="inputArtist" required placeholder="Башҡарыусының исеме яҙығыҙ">
+  </div>
+  <div class="form-group">
+    <label for="inputSongName">Йырҙың исеме</label>
+    <input type="text" name="title" class="form-control" id="inputSongName" required placeholder="Йырҙың исемен яҙығыҙ">
+  </div>
+  <div class="form-group">
+    <label for="inputTextSong">Йырҙың тексты</label>
+    <textarea class="form-control" name="text" id="inputTextSong" required placeholder="Йырҙың текстын яҙығыҙ" rows="13"></textarea>
+  </div>
+  <div class="form-group">
+    <input type="hidden" name="customer" value="{{ app.user.firstName }} {{ app.user.lastName }}" class="form-control" >
+  </div>
+  <button type="submit" class="btn btn-default">Ебәрергә</button>
+</form>

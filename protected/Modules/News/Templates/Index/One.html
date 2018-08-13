@@ -1,0 +1,25 @@
+{% extends 'Index.html' %}
+
+{% block  breadcrumb %}
+    <li><a href="/news/">Яңылыҡтар</a></li>
+    <li><a href="/news/topics">Рубрикалар</a></li>
+    <li><a href="/news/topics/{{ item.topic.Pk }}">{{item.topic.title}}</a></li>
+
+{% endblock %}
+
+{% block content %}
+
+
+  <h2 class="page-header">{{item.title}}</h2>
+
+    <div style="text-align: center;">
+    {% if item.image %} <img style="max-width: 100%; " src="{{item.image}}" alt="{{item.image}}">{% endif %}
+    </div>
+
+  {{item.lead|raw}}
+  <hr>
+
+    {{item.text|raw}}
+
+
+{% endblock %}

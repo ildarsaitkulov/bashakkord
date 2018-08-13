@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="bashakkord" default="build" basedir="">
+
+    <target name="vars">
+        <echo msg="Setting local variables..." />
+
+        <php returnProperty="build.time" function="date">
+            <param value="Y-m-d-H-i-s" />
+        </php>
+        <resolvepath propertyName="home.dir" file="/home/bashakkord" />
+        <resolvepath propertyName="target.dir" path="${home.dir}/htdocs/${build.time}"/>
+        <echo msg="Current build dir is: ${project.basedir}"/>
+        <echo msg="Target dir: ${target.dir}"/>
+    </target>
+
+    <target name="copy">
+        <copy todir="${target.dir}">
+            <fileset dir="${project.basedir}">
+                <include name="**"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="config">
+        <copy file="${project.basedir}/build/config.php" tofile="${target.dir}/protected/config.php" overwrite="true">
+            <filterchain>
+                <replacetokens begintoken="{{" endtoken="}}">
+                    <token key="domain" value="bashakkord.com"/>
+                    <token key="db.user" value="root"/>
+                    <token key="db.password" value="${dbpassword}"/>
+                    <token key="mail.password" value="${mailpassword}"/>
+
+                </replacetokens>
+            </filterchain>
+        </copy>
+    </target>
+    <target name="composer">
+        <echo msg="Install composer depedencies..." />
+        <exec dir="${target.dir}" command="php ${project.basedir}/bin/composer.phar install" checkreturn="true" passthru="true" error="stdout"/>
+    </target>
+
+    <target name="switch">
+        <symlink target="${target.dir}" link="/home/bashakkord/htdocs/current" overwrite="true" />
+        <exec command="chmod -R 0777 /home/bashakkord/htdocs/current" dir="${target.dir}" checkreturn="true" passthru="true" error="stdout" />
+    </target>
+
+    <target name="migrate">
+        <echo msg="Migrations up..." />
+        <exec command="php protected/t4.php /migrate/up" dir="${target.dir}" checkreturn="true" passthru="true" error="stdout" />
+    </target>
+
+
+    <target name="build" depends="vars, copy, config, composer, migrate,  switch"></target>
+
+</project>

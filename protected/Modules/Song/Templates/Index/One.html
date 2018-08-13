@@ -1,0 +1,224 @@
+{% extends 'Index.html' %}
+
+{% block  breadcrumb %}
+    <li><a href="/songs/">Йырҙар</a></li>
+    <li><a href="/songs/{{ item.Pk }}">{{ item.title }}</a></li>
+
+
+{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="/Assets/APlayer/dist/APlayer.min.css">
+    <h2 style="text-align: center;"> {{ item.title }} - <a href="/artists/{{ item.artist.__id }}">{{ item.artist.name }}</a></h2>
+    <hr>
+    {% if item.audio %}
+        <div id="player1" class="aplayer"></div>
+        <hr>
+    {% endif %}
+
+
+
+    <div class="row">
+        <div class="col-md-2 "></div>
+        {% autoescape false %}
+            <div class="col-md-7 col-sm-7">{{ item.text }}</div>
+        {% endautoescape %}
+        <div class="col-md-3 ">
+            <h4>
+
+                <i id="up" class="fa  fa-chevron-circle-up"></i>
+                <i id="tone">Тональность</i>
+                <i id="down" class="fa  fa-chevron-circle-down"></i>
+
+            </h4>
+
+            <div id="chords"></div>
+        </div>
+    </div>
+
+    <hr>
+
+
+
+{% endblock %}
+{% block pagescript %}
+    <script>
+        $("#up").click(function () {
+            var cnt;
+            var tone = $("#tone");
+            if (tone.text() != +6) {
+                chords = {};
+
+
+                $('strong').each(function (index) {
+                    var text = $(this).text();
+
+                    if ('C' === text.charAt(0)) {
+                        if ('#' == text.charAt(1)) {
+                            $(this).text('D' + text.charAt(2));
+                        } else {
+                            $(this).text('C' + '#' + text.charAt(1));
+                        }
+                    } else if ('D' === text.charAt(0)) {
+                        if ('#' == text.charAt(1)) {
+                            $(this).text('E' + text.charAt(2));
+                        } else {
+                            $(this).text('D' + '#' + text.charAt(1));
+                        }
+                    } else if ('E' === text.charAt(0)) {
+                        $(this).text('F' + text.charAt(1));
+                    } else if ('F' === text.charAt(0)) {
+                        if ('#' == text.charAt(1)) {
+                            $(this).text('G' + text.charAt(2));
+                        } else {
+                            $(this).text('F' + '#' + text.charAt(1));
+                        }
+                    } else if ('G' === text.charAt(0)) {
+                        if ('#' == text.charAt(1)) {
+                            $(this).text('A' + text.charAt(2));
+                        } else {
+                            $(this).text('G' + '#' + text.charAt(1));
+                        }
+                    } else if ('A' === text.charAt(0)) {
+                        if ('#' == text.charAt(1)) {
+                            $(this).text('H' + text.charAt(2));
+                        } else {
+                            $(this).text('A' + '#' + text.charAt(1));
+                        }
+                    } else if ('H' === text.charAt(0)) {
+                        $(this).text('C' + text.charAt(1));
+                    }
+                    var chord = $(this).text();
+                    chords[index] = chord;
+
+                });
+                $.ajax({
+                    url: '/chords',
+                    data: chords ,
+                    success: function (data) {
+                        $('#chords').html (data);
+                    }
+                });
+
+                if ('Т' === tone.text().charAt(0)) {
+                    cnt = 1;
+                } else {
+                    cnt = Number(tone.text()) + 1;
+                }
+
+                tone.text(cnt);
+            }
+
+        });
+
+
+        $("#down").click(function () {
+            var cnt;
+            var tone = $("#tone");
+            if (tone.text().charAt(1) !== '6') {
+                chords = {};
+
+                $('strong').each(function (index) {
+                    var text = $(this).text();
+
+                    if ('C' === text.charAt(0)) {
+                        if ('#' == text.charAt(1)) {
+                            $(this).text('C' + text.charAt(2));
+                        } else {
+                            $(this).text('H' + text.charAt(1));
+                        }
+
+                    } else if ('D' === text.charAt(0)) {
+                        if ('#' == text.charAt(1)) {
+                            $(this).text('D' + text.charAt(2));
+                        } else {
+                            $(this).text('C' + '#' + text.charAt(1));
+                        }
+                    } else if ('E' === text.charAt(0)) {
+                        $(this).text('D' + '#' + text.charAt(1));
+                    } else if ('F' === text.charAt(0)) {
+                        if ('#' == text.charAt(1)) {
+                            $(this).text('F' + text.charAt(2));
+                        } else {
+                            $(this).text('E' + text.charAt(1));
+                        }
+                    } else if ('G' === text.charAt(0)) {
+                        if ('#' == text.charAt(1)) {
+                            $(this).text('G' + text.charAt(2));
+                        } else {
+                            $(this).text('F' + '#' + text.charAt(1));
+                        }
+                    } else if ('A' === text.charAt(0)) {
+                        if ('#' == text.charAt(1)) {
+                            $(this).text('A' + text.charAt(2));
+                        } else {
+                            $(this).text('G' + '#' + text.charAt(1));
+                        }
+                    } else if ('H' === text.charAt(0)) {
+                        $(this).text('A' + '#' + text.charAt(1));
+                    }
+
+                    var chord = $(this).text();
+                    chords[index] = chord;
+
+                });
+
+                $.ajax({
+                    url: '/chords',
+                    data: chords ,
+                    success: function (data) {
+                        $('#chords').html (data);
+                    }
+                });
+
+                if ('Т' === tone.text().charAt(0)) {
+                    cnt = -1;
+                } else {
+                    cnt = Number(tone.text()) - 1;
+                }
+
+                tone.text(cnt);
+            }
+
+        });
+
+
+        $(function () {
+           chords = {};
+           $('strong').each(function (index) {
+                 var chord = $(this).text();
+                 chords[index] = chord;
+            });
+
+            $.ajax({
+                url: '/chords',
+                data: chords ,
+                success: function (data) {
+                    $('#chords').html (data);
+                }
+            });
+
+
+        });
+
+
+    </script>
+    <script src="/Assets/APlayer/dist/APlayer.min.js"></script>
+    <script>
+        var ap1 = new APlayer({
+            element: document.getElementById('player1'),
+            narrow: false,
+            showlrc: false,
+            theme: '#e6d0b2',
+            music: {
+                title: "{{ item.title }}",
+                author: "{{ item.artist.name }}",
+                url: "{{ item.audio }}",
+                pic: "{{ item.artist.image }}"
+            }
+        });
+        ap1.init();
+
+    </script>
+
+{% endblock %}

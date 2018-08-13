@@ -1,0 +1,21 @@
+{% extends 'Index.html' %}
+
+{% block  breadcrumb %}
+  <li><a href="/news/">Яңылыҡтар</a></li>
+  <li><a href="/news/topics">Рубрикалар</a></li>
+
+
+{% endblock %}
+
+{% block content %}
+
+  <table class="table">
+    {% for item in items %}
+      <tr>
+        <td><a href="/news/topics/{{ item.__id }}">{{ item.title }}</a></td>
+      </tr>
+    {% endfor %}
+  </table>
+
+
+{% endblock %}

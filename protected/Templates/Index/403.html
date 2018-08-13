@@ -1,0 +1,18 @@
+{% extends "Index.html" %}
+
+{% block meta_title %}Ошибка 403 | {{ parent() }}{% endblock %}
+
+{% block breadcrumbs %}
+<li><a href="/"><i class="glyphicon glyphicon-home"></i></a></li>
+<li>Ошибка 403</li>
+{% endblock %}
+
+{% block content %}
+<div class="row" style="text-align: center;">
+    <div class="col-xs-12">
+        <img style="max-width: 30%" src="/img/access_denied.png" alt="access_denied">
+        <h3 class="heading">Был биткә һеҙҙең хоҡуғығыҙ юҡ</h3>
+        <p>Был биткә инер өсөн сайттың администраторы булырға кәрәк</p>
+    </div>
+</div>
+{% endblock %}
