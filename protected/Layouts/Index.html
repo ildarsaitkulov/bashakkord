@@ -52,7 +52,7 @@
             <li><a href="/user/login"><i class="fa fa-sign-in"></i> Сайтҡа инеү</a></li>
             <li><a href="/user/register" ><i class="fa fa-user-plus"></i> Сайтта теркәлеү</a></li>
           {% else %}
-            <li><a href="/user/logout.html"><i class="fa fa-sign-out"></i>Сайттан сығыу</a></li>
+            <li><a href="/user/logout"><i class="fa fa-sign-out"></i>Сайттан сығыу</a></li>
             {% if app.user.hasRole('admin') %}
               <li class="divider"><a href="/admin"><i class="fa  fa-wrench"></i>Админ-панель</a></li>
             {% endif %}
