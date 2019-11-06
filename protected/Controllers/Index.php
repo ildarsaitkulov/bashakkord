@@ -13,7 +13,7 @@ class Index extends Controller
     {
 
         $this->app->runRoute(
-            new Route('/News/Index/Default/'),
+            new Route('/Artist/Index/Default/'),
             Router::getInstance()->getFormatByExtension($this->app->request->extension)
         );
         die;
