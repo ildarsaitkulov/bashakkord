@@ -12,9 +12,9 @@ class Mailer
 
     const THEMES = [
         'test'              => 'Тестовое письмо',
-        'user.register'     => 'Добро пожаловать в BashAkkord',
-        'user.restore'      => 'Восстановление пароля в BashAkkord',
-        'register.password' => 'Ваш пароль на сайте BashAkkord',
+        'user.register'     => 'Добро пожаловать в BashSong',
+        'user.restore'      => 'Восстановление пароля в BashSong',
+        'register.password' => 'Ваш пароль на сайте BashSong',
     ];
 
     /**
