@@ -156,8 +156,17 @@
   <div class="container" style="text-align: center;">
     <span>&copy; BashSong 2019  </span>
     <div>Почта: bashsong@mail.ru</div>
+    <br>
+    <div style="display: inline-block" id="vk_groups"></div>
   </div>
 </footer>
+<script type="text/javascript" src="https://vk.com/js/api/openapi.js?162"></script>
+
+<script type="text/javascript">
+    window.onload = function() {
+        VK.Widgets.Group("vk_groups", {mode: 3, no_cover: 1}, 22918000);
+    };
+</script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
