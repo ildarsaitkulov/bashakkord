@@ -1,0 +1,4 @@
+User-Agent: *
+Disallow:
+Host: bashsong.ru
+Sitemap: http://bashsong.ru/sitemap.xml
